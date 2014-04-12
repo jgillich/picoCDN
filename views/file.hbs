@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+{{> head}}
+        <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+    </head>
+    <body>
+{{> nav }}
+
+        <div id="plugins">
+            {{ language }} {{ plugins language enabledPlugins }}
+        </div>
+
+        <main>
+            <pre>{{{ text }}}</pre>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+
+                // Select <main> on ctrl-a
+                document.addEventListener('keydown', function (event) {
+                    if(event.ctrlKey && event.keyCode == 65) {
+                        var range = document.createRange();
+                        range.selectNode(document.getElementsByTagName('main')[0]);
+                        window.getSelection().addRange(range);
+                        event.preventDefault();
+                    }
+                });
+
+                document.querySelector('button').addEventListener('click', function () {
+                    var hash = /^\/(\w{10})/.exec(window.location.pathname)[1],
+                        plugins = [];
+
+                    Array.prototype.slice.call(document.querySelectorAll('input')).forEach(function (input) {
+                        if(input.checked) {
+                            plugins.push(input.name);
+                        }
+                    });
+
+                    window.location.pathname = '/' + hash + '/' + plugins.join(',');
+                });
+
+            });
+        </script>
+    </body>
+</html>

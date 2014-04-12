@@ -1,0 +1,111 @@
+@import 'bourbon';
+@import 'neat';
+
+@mixin placeholder {
+    ::-webkit-input-placeholder { @content }
+    :-moz-placeholder           { @content }
+    ::-moz-placeholder          { @content }
+    :-ms-input-placeholder      { @content }
+}
+
+body {
+    @include outer-container;
+    font-size: 120%;
+    font-family: monospace, sans-serif;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+a {
+    text-decoration:none;
+    color: #0772E4;
+    &:active, &:visited {
+        text-decoration:none;
+        color: #0772E4;
+    }
+}
+
+main {
+    @include span-columns(12);
+
+    button {
+        @include button;
+        float: right;
+        margin-top: 10px;
+    }
+}
+
+footer {
+    @include span-columns(12);
+    a {
+        color: #555;
+        &:active, &:visited {
+            color: #555;
+        }
+        font-size: 12px;
+    }
+    img {
+        height: 18px;
+        vertical-align: bottom;
+    }
+}
+
+nav {
+    h1 {
+        @include span-columns(3);
+        a {
+            color: #333;
+            &:active, &:visited {
+                color: #333;
+            }
+        }
+    }
+}
+
+
+textarea {
+    width: 100%;
+    height: 700px;
+}
+@media (max-height: 850px) { textarea { height: 600px; } }
+@media (max-height: 750px) { textarea { height: 500px; } }
+@media (max-height: 650px) { textarea { height: 400px; } }
+@media (max-height: 550px) { textarea { height: 300px; } }
+@media (max-height: 450px) { textarea { height: 200px; } }
+
+pre {
+    font-size: 13px;
+    overflow: auto;
+    white-space: pre;
+    word-wrap: normal;
+}
+
+@include placeholder {
+    font-size: 140%;
+}
+
+section {
+    @include outer-container;
+    padding-bottom: 20px;
+    aside { @include span-columns(3); }
+    article { @include span-columns(9); }
+}
+
+div#plugins {
+    float: right;
+    font-size: 60%;
+    color: grey;
+    padding: 25px 0;
+    input {
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+    button {
+        margin-left: 10px;
+        @include button(simple, grey);
+        padding: 2px 10px;
+    }
+}
+.pico {
+    color: #0772E4;
+}
