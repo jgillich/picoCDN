@@ -81,7 +81,7 @@ module.exports = {
             });
 
             if(env.raw) {
-                res.set('Content-Type', env.contentType);
+                res.set('Content-Type', env.contentType + '; charset=utf-8');
                 res.send(text);
             } else {
                 if(env.escape && env.language !== undefined) {
