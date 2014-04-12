@@ -1,6 +1,6 @@
 {
   "name": "picoCDN",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "File hosting for developers",
   "main": "app.js",
   "repository": {
