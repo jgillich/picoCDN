@@ -20,11 +20,33 @@ module.exports = function (grunt) {
                     delay: 100
                 }
             }
-        }
+        },
+
+        jshint: {
+            options: {
+                jshintrc: true
+            },
+            all: ['*.js']
+        },
+
+        mochacli: {
+            options: {
+                ui: 'bdd',
+                reporter: 'spec'
+            },
+            all: ['test/*.js']
+        },
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-express-server');
+    grunt.loadNpmTasks('grunt-mocha-cli');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+
+    grunt.registerTask('test', [
+        'jshint',
+        'mochacli'
+    ]);
 
     grunt.registerTask('default', 'watch:dev');
 

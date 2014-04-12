@@ -34,8 +34,8 @@ hbs.registerHelper('plugins', function(language, enabledPlugins) {
     var res = '';
     if(plugins[language]) {
         Object.keys(plugins[language]).forEach(function (plugin) {
-            res += '<input name="' + plugin + '" type="checkbox"'
-                + (enabledPlugins.indexOf(plugin) !== -1 ? ' checked' : '') +'>' + plugin;
+            res += '<input name="' + plugin + '" type="checkbox"' +
+                (enabledPlugins.indexOf(plugin) !== -1 ? ' checked' : '') +'>' + plugin;
         });
     }
     return new hbs.SafeString(res + '<input name="raw" type="checkbox">raw<button>View</button>');
@@ -44,8 +44,5 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs.__express);
-app.listen(4422);
 
-process.on('exit', function () {
-    app.close();
-});
+module.exports = app;

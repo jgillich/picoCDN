@@ -40,19 +40,19 @@ module.exports = {
 
     file: function (req, res, next) {
         fs.readFile('files/' + req.params[0], { encoding: 'utf8' }, function(err, text) {
-           if(err) {
-               res.statusCode = 404;
-               return next(new Error('File not found.'));
-           }
+            if(err) {
+                res.statusCode = 404;
+                return next(new Error('File not found.'));
+            }
 
-           var enabledPlugins = [],
-               env = {
-                   hbs: hbs,
-                   raw: false,
-                   escape: true,
-                   contentType: 'text/plain',
-                   language: hljs.highlightAuto(text).language
-               };
+            var enabledPlugins = [],
+                env = {
+                    hbs: hbs,
+                    raw: false,
+                    escape: true,
+                    contentType: 'text/plain',
+                    language: hljs.highlightAuto(text).language
+                };
 
             switch(env.language) {
                 case 'javascript':
@@ -63,11 +63,11 @@ module.exports = {
                     break;
             }
 
-           if(typeof req.params[1] === 'string') {
-               enabledPlugins = req.params[1].split(',');
-           }
+            if(typeof req.params[1] === 'string') {
+                enabledPlugins = req.params[1].split(',');
+            }
 
-           enabledPlugins.forEach(function(key) {
+            enabledPlugins.forEach(function(key) {
                 if(plugins[env.language] && plugins[env.language][key]) {
                     try {
                         text = plugins[env.language][key].call(env, text);
@@ -78,21 +78,21 @@ module.exports = {
                 } else if(key === 'raw') {
                     env.raw = true;
                 }
-           });
+            });
 
-           if(env.raw) {
-               res.set('Content-Type', env.contentType);
-               res.send(text);
-           } else {
-               if(env.escape && env.language !== undefined) {
-                   text = hljs.highlight(env.language, text).value;
-               } else if(env.escape) {
-                   text = _.escape(text);
-               }
+            if(env.raw) {
+                res.set('Content-Type', env.contentType);
+                res.send(text);
+            } else {
+                if(env.escape && env.language !== undefined) {
+                    text = hljs.highlight(env.language, text).value;
+                } else if(env.escape) {
+                    text = _.escape(text);
+                }
 
-               res.render('file', { text: text, language: env.language || 'text', enabledPlugins: enabledPlugins});
-           }
-       });
+                res.render('file', { text: text, language: env.language || 'text', enabledPlugins: enabledPlugins });
+            }
+        });
 
     },
 
