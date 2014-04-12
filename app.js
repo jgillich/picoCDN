@@ -4,18 +4,19 @@ var express     = require('express'),
     bourbon     = require('node-bourbon').includePaths,
     neat        = require('node-neat').includePaths,
     routes      = require('./routes'),
-    plugins     = require('./plugins.js'),
+    plugins     = require('./plugins'),
+    middlewares = require('./middlewares'),
     app         = express();
 
 app.use(express.compress());
 app.use(express.urlencoded());
 app.use(express.static('static'));
 
-app.get('/', routes.index);
+app.get('/', middlewares.cache, routes.index);
 app.post('/submit', routes.submit);
-app.get('/about', routes.about);
-app.get(/^\/(\w{10})\/?(.*)$/, routes.file);
-app.get('/style.css', routes.style);
+app.get('/about', middlewares.cache, routes.about);
+app.get(/^\/(\w{10})\/?(.*)$/, middlewares.cache, routes.file);
+app.get('/style.css', middlewares.cache, routes.style);
 app.all('*', routes.notFound);
 app.use(routes.error);
 
