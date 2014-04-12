@@ -10,7 +10,7 @@ var express     = require('express'),
 
 app.use(express.compress());
 app.use(express.urlencoded());
-app.use(express.static('static'));
+app.use(express.static(__dirname + '/static', { maxAge: 3600000 }));
 
 app.get('/', middlewares.cache, routes.index);
 app.post('/submit', routes.submit);
